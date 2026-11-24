@@ -1,6 +1,6 @@
 /* Huat Homes service worker — offline play + fast launches.
    Bump VERSION whenever you change files in the app shell. */
-const VERSION = 'huat-homes-v1';
+const VERSION = 'huat-homes-v2';
 const SHELL = [
   './',
   './manifest.webmanifest',
