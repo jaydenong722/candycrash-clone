@@ -1,0 +1,25 @@
+{
+  "id": "/",
+  "name": "Huat Homes — SG Property Match-3",
+  "short_name": "Huat Homes",
+  "description": "A Singapore property match-3 game. Match HDB flats, condos and shophouses, lift the cooling measures and build your S$ portfolio.",
+  "lang": "en-SG",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#2e2068",
+  "theme_color": "#2b1d5c",
+  "categories": ["games", "entertainment"],
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/maskable-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
+    { "src": "icons/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ],
+  "screenshots": [
+    { "src": "screenshots/title.png", "sizes": "780x1688", "type": "image/png", "form_factor": "narrow", "label": "Huat Homes title screen" },
+    { "src": "screenshots/gameplay.png", "sizes": "780x1688", "type": "image/png", "form_factor": "narrow", "label": "Matching homes and lifting cooling measures" }
+  ]
+}
