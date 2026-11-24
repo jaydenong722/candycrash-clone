@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
-<meta name="theme-color" content="#000000">
+<meta name="theme-color" content="#2b1d5c">
 <meta name="description" content="Huat Homes — a Singapore property match-3 game. Match HDB flats, condos and shophouses to build your S$ portfolio.">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="favicon.ico" sizes="32x32">
@@ -21,9 +21,11 @@
 :root{--gold:#ffd23f;--ink:#2b1d5c;--panel:rgba(30,18,78,.62)}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;height:100%;overflow:hidden;overscroll-behavior:none;touch-action:manipulation;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
-body{font-family:Nunito,system-ui,sans-serif;color:#fff;background:#000}
+body{font-family:Nunito,system-ui,sans-serif;color:#fff;background:#3a2470}
 button{font-family:inherit}
-#bg{position:fixed;inset:0;background:#000;z-index:-3}
+#bg{position:fixed;inset:0;background:linear-gradient(180deg,#2e2068 0%,#6b3a92 36%,#d9628c 68%,#ffb07a 100%);z-index:-3}
+#sun{position:fixed;left:50%;bottom:14vh;width:46vmin;height:46vmin;transform:translateX(-50%);border-radius:50%;background:radial-gradient(circle,#ffe7a3 0%,#ffb36b 55%,rgba(255,140,100,0) 72%);z-index:-2;opacity:.75}
+#skyline{position:fixed;left:0;right:0;bottom:0;width:100%;height:34vh;z-index:-1}
 .screen{position:fixed;inset:0;display:none;flex-direction:column;align-items:center;padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}
 .screen.active{display:flex}
 
@@ -154,6 +156,8 @@ button{font-family:inherit}
 </head>
 <body>
 <div id="bg"></div>
+<div id="sun"></div>
+<svg id="skyline" viewBox="0 0 400 120" preserveAspectRatio="xMidYMax slice" aria-hidden="true"></svg>
 
 <!-- TITLE -->
 <section id="title" class="screen active">
@@ -338,6 +342,16 @@ const KEY_URL = svgURL(KEY_SVG);
 function loadImg(src){ return new Promise(res => { const im = new Image(); im.onload = () => res(im); im.onerror = () => res(im); im.src = src; }); }
 let pieceImgs = [], keyImg = null, pieceCanvas = [], keyCanvas = null;
 
+/* skyline backdrop */
+(function buildSkyline(){
+  const rng = mulberry32(42); let far = '', near = '', win = '';
+  let x = 0; while (x < 400){ const w = 12 + rng()*22, h = 45 + rng()*55; far += `<rect x="${x.toFixed(1)}" y="${(120-h).toFixed(1)}" width="${w.toFixed(1)}" height="${h.toFixed(1)}" rx="1"/>`; x += w + 1 + rng()*3; }
+  x = -4; while (x < 404){ const w = 18 + rng()*26, h = 24 + rng()*36;
+    near += `<rect x="${x.toFixed(1)}" y="${(120-h).toFixed(1)}" width="${w.toFixed(1)}" height="${h.toFixed(1)}" rx="1.5"/>`;
+    for (let wy = 120-h+5; wy < 116; wy += 6) for (let wx = x+3; wx < x+w-4; wx += 5) if (rng() < .32) win += `<rect x="${wx.toFixed(1)}" y="${wy.toFixed(1)}" width="2.2" height="2.6"/>`;
+    x += w + 2 + rng()*4; }
+  $('skyline').innerHTML = `<g fill="#5a3a8f" opacity=".55">${far}</g><g fill="#2a1a58">${near}</g><g fill="#ffd98a" opacity=".75">${win}</g>`;
+})();
 
 /* =========================================================
    AUDIO — synthesized SFX + music (Web Audio)
